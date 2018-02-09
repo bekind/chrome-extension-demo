@@ -1,0 +1,45 @@
+{
+  "manifest_version": 2,
+
+  "name": "App Bridge Debug",
+  "description": "This extension allows the user to debug the current page in app mode.",
+  "version": "2.1",
+
+  "options_page": "page/options.html",
+
+  "content_scripts": [
+    {
+        "matches": [ "*://*.chuchutong.com/*", "*://*.daweixinke.com/*", "*://*.chuchujie.com/*"],
+        "js": ["lib/jquery-3.2.0.min.js","js/utils.js","js/inject.js" ],
+        "run_at": "document_start",
+        "all_frames": true
+    }
+  ],
+
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+
+  "page_action": {
+    "default_icon": "image/icon.png",
+    "default_popup": "page/popup.html",
+    "default_title": "click here!"
+  },
+
+  "permissions": [
+    "background",
+    "declarativeContent",
+    "activeTab",
+    "storage",
+    "notifications",
+    "cookies",
+    "*://*/*"
+  ],
+  "web_accessible_resources":[
+    "image/icon.png",
+    "js/utils.js",
+    "js/inject.js",
+    "js/clientbridge.js"
+  ]
+}

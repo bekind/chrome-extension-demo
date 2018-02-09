@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>APP Bridge Debug Settings</title>
+    <link rel="stylesheet" type="text/css" href="../lib/semantic/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="../lib/jquery-3.2.0.min.js"></script>
+    <script src='../lib/vue.js'></script>
+    <script src="../js/utils.js"></script>
+    <script src="../lib/semantic/semantic.min.js"></script>
+</head>
+
+<body>
+    <div id='main' class="container">
+        <!-- <h2 class="ui header">APP Bridge Debug Settings</h2>
+    <hr> -->
+        <div class="ui horizontal divider tb40">
+            <h3 class="ui header">
+                <i class="settings icon"></i>
+                <div class="content">Options</div>
+            </h3>
+        </div>
+        <div class="ui top attached tabular menu">
+            <a class="item active" data-tab="first">App Info</a>
+            <a class="item" data-tab="second">API Info</a>
+            <a class="item" data-tab="third">Others</a>
+        </div>
+        <div class="ui bottom attached tab segment active" data-tab="first">
+            <div> App Select：
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="appname">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">app name</div>
+                    <div class="menu">
+                        <div class="item" data-value="1">楚楚推</div>
+                        <div class="item" data-value="2">楚楚顾问</div>
+                        <div class="item" data-value="3">萌萌团</div>
+                        <div class="item" data-value="4">赚享客</div>
+                        <div class="item" data-value="5">微友团</div>
+                    </div>
+                </div>
+            </div>
+            <div class="setting-item">App Version：
+                <div class="ui input" data-inverted="" data-tooltip="iOS客户端" data-position="top center">
+                    <input type="text" placeholder="输入版本号" v-model='iosVersion' @blur='inputBlur(1)'>
+                </div>
+                —/—
+                <div class="ui input" data-inverted="" data-tooltip="Android客户端" data-position="top center">
+                    <input type="text" placeholder="输入版本号" v-model='androidVersion' @blur='inputBlur(2)'>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="ui bottom attached tab segment" data-tab="second">
+            <div class="ui accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i> logout </div>
+                <div class="content">
+                    <div class="ui raised segment">不支持模拟客户端退出登录，仅给出弹窗提示</div>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i> getClientInfo </div>
+                <div class="content">
+                    <div class="ui raised segment">
+                        <h4 class="ui header">返回数据结构</h4>
+                        <p style="word-wrap: break-word;">
+                            { "channel": "QD_yyb", "deviceBrand": "HONOR KNT-AL20", "imei": "869395022509438", "m_cck_access_token": "ccjb71547197003742000073460317a81547197003",
+                            "net": "wifi", "packageName": "com.culiu.chuchutui", "platform": "android", "screen": "2408*1440",
+                            "sdkVersion": "7.0", "uid": "73460317", "userId": "73460317", "version": "1.5.13", "xingeToken":
+                            "Dag7MARMjqjhzMkrqEXoQkAwzG2ufIJM37pDl+3VdZE=" }
+                        </p>
+                    </div>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i> getUserInfo </div>
+                <div class="content">
+                    <div class="ui raised segment">
+                        <h4 class="ui header">返回数据结构</h4>
+                        <p style="word-wrap: break-word;">
+                            {"userInfo":{"id":"70085680","head_image_url":"https://wx.qlogo.cn/mmopen/aFK5bO4XliasvBFFic2wG4xOJo1kWxXboicLUricrricUEoL0Myj9j89bF28Ba4lBXQsNq5oph7OwrQEU9yOmouNIAJyVBQia99gYz/0","real_name":"NONE","occupation":0,"u_type":0,"phone_number":"","nick_name":"WX_10_P5QN2RZM","is_shangjia":"N","location":"北京","ctime":1487395365,"birthday":"1969-03-15","id_number":"0","ascription":1,"gender":"2"},
+                            "weChatUserInfo":{"openid":"ofOsk03UTpoOwULNEDVtv-wgfXwA","city":"Baoding","country":"CN","nickname":"杨敏","privilege":[],"language":"zh_CN","headimgurl":"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJJbja5Dibv4HSEjF9my0TbaS8rNvmexfjfXzTBUAd8TicicbPzzD6ckUY3eUv1ubYoWMMhibdMA7gaQg/0","unionid":"opTdBt7AnbuONhOTlTgD_IzbX1X8","sex":2,"province":"Hebei"},"code":0}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="third">
+            <div class="ui accordion">
+                <div class="title active">
+                    <i class="dropdown icon"></i> 支持哪些网站? </div>
+                <div class="content active">
+                    <div class="ui list transition visible">
+                        <div class="item">
+                            <i class="linkify icon"></i>
+                            <div class="content">
+                                <a href="javascript:;">*://*.chuchutong.com</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="linkify icon"></i>
+                            <div class="content">
+                                <a href="javascript:;">*://*.daweixinke.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="title">
+                    <i class="dropdown icon"></i> 使用说明? </div>
+                <div class="content">
+                    <p>1、点击浏览器右上角插件图标，会显示当前网页的登录态，如果没有登录的话，点击未登录，输入token保存</p>
+                    <p>2、点击开启，开启手机bridge模拟模式，页面会自动刷新，如果没有，则手动刷新一下即可</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/options.js"></script>
+
+</html>

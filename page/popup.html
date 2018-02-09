@@ -1,0 +1,68 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+
+<head>
+  <title>Getting Started Extension's Popup</title>
+
+  <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+    -->
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' 'unsafe-eval';">
+  <link rel="stylesheet" href="../css/popup.css">
+  <script src="../lib/jquery-3.2.0.min.js"></script>
+  <script src="../lib/vue.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/popup.js"></script>
+</head>
+
+<body>
+  <div id='main'>
+    <div class="header">
+      <h3>手机调试模式</h3>
+    </div>
+    <div v-if='supported'>
+      <div class="debug-switch">
+        <a class="debug-content border-tp border-bt" href="javascript:;" @click='switchPro'>
+          <img class="icon-debug" :src="debugStatus ? '../image/check.png': '../image/clear.png'"></img>
+          <label class="lb-debug">对当前网站
+            <em :class="debugStatus ? 'on' : 'off'">{{debugStatus ? '启用' : '禁用'}}</em>
+          </label>
+        </a>
+      </div>
+
+      <div class="debug-switch">
+        <a class="debug-content border-bt" href="javascript:;" v-show='!editTokenStatus' @click.stop='changeStatus()'>
+          <img class="edit-icon" src='../image/user02.png'></img>
+          <label class="lb-debug">{{!!token ? '已登录' : '未登录'}}</label>
+        </a>
+        <div class="debug-content" v-else>
+          <input id='token' class='debugTokenValue' placeholder="input your access token value" :value='token' :readonly='editable' />
+          <img class="edit-icon save" :src='editable ? "../image/edit.png":"../image/save.png"' @click.stop='editToken'></img>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+        <div class="debug-switch">
+          <div class="debug-content border-tp border-bt">
+              <img class="icon-debug" src="../image/Forbid.png"></img>
+              <label class="lb-debug">该插件不支持当前网站</label>
+          </div>
+        </div>
+    </div>
+    <a class="footer" href="javascript:;" @click='gotoSetting'>
+      <i class="more-setting"></i>
+      <label class="settings">设置</label>
+    </a>
+  </div>
+</body>
+
+</html>
