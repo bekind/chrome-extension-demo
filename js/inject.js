@@ -32,11 +32,11 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 getDebugSettings('app-debug', (debug) => {
     if (debug) {
         initialSetupEnv(() => {
-            // readFileSync('../js/clientbridge.min.js', writeScriptSync);
-            var srcUrl = chrome.extension.getURL("../js/clientbridge.min.js");
-            $.get(srcUrl, function(data){
-                writeScriptSync(data);
-            });
+            readFileSync('../js/clientbridge.min.js', writeScriptSync);
+            // var srcUrl = chrome.extension.getURL("../js/clientbridge.min.js");
+            // $.get(srcUrl, function(data){
+            //     writeScriptSync(data);
+            // });
             //src 方式为异步加载，不能保证在页面js执行之前执行
             // var srcUrl = chrome.extension.getURL("../js/clientbridge.js");
             // var script = '<script type="text/javascript" ></script>';
@@ -99,25 +99,6 @@ function clearSetupEnv() {
     _vm_removeCookie('app_partner_id');
 }
 
-
-
-//由于读取文件有失败的情况，导致注入失败，
-//如果出于稳定性考虑，可以把文件内容存储起来，
-//但是会有更新版本的问题，暂时搁置
-function excuteScript() {
-    getDebugSettings('bridge-content',(content)=>{
-        if (!content) {
-            //同步获取脚本内容
-            var srcUrl = chrome.extension.getURL("../js/clientbridge.min.js");
-            $.get(srcUrl, function (data) {
-                saveDebugSettings('bridge-content',data);
-                writeScriptSync(data);
-            })
-        } else {
-            writeScriptSync(data);
-        }
-    })
-}
 
 // 1.同步获取脚本内容
 var readFileSync = function (filename, callback) {
