@@ -80,6 +80,17 @@ function getOptions(item, callback) {
   })
 }
 
+/**
+ * 读取插件配置信息
+ * @param {function} callback 
+ */
+function getAppDetails(callback) {
+  var version = null;
+  $.get(chrome.extension.getURL('manifest.json'), function (info) {
+   callback && callback(info);
+  }, 'json');
+}
+
 //获取url中的主域名
 //例如：dev.master.ccj.chuchutong.com----> .ccj.chuchutong.com
 function getDomainUrl(url) {
@@ -160,7 +171,7 @@ function getAppPartnerIdWithType(type) {
   return appId;
 }
 
-function Browser() {}
+function Browser() { }
 Browser.prototype = {
   versions: function () {
     var u = navigator.userAgent,
@@ -181,56 +192,4 @@ Browser.prototype = {
       qq: u.match(/\sQQ/i) == " qq" //是否QQ
     };
   }()
-}
-
-
-/**
- * 初始化基础环境变量和cookie存储
- */
-function initialSetupEnv(callback) {
-  var browser = new Browser();  
-  clearSetupEnv();
-  getOptions('app-opt', (value) => {
-      var packageName = getPackageNameWithType(value);
-      var appId = getAppPartnerIdWithType(value);
-      if (browser.versions.ios) {
-          getOptions('app-iosversion', (version) => {
-              _vm_setCookie('package_name', packageName);
-              _vm_setCookie('client_version', version || '1.0');
-              _vm_setCookie('client_type', 'ios');
-              _vm_setCookie('app_partner_id', appId);
-          });
-      } else if (browser.versions.android) {
-          getOptions('app-androidversion', (version) => {
-              _vm_setCookie('package', packageName);
-              _vm_setCookie('version', version || '1.0');
-              _vm_setCookie('client_type', 'android');
-              _vm_setCookie('app_partner_id', appId);
-          })
-      }
-
-      //set token
-      getDebugSettings('tkValue', (tk) => {
-          if (tk) {
-              _vm_setCookie('m_cck_access_token', tk);
-              _vm_setCookie('access_token', tk);
-          }
-          if (callback && typeof callback == 'function') {
-              callback();
-          }
-      })
-  });
-}
-
-/**
-* 清除APP Debug数据痕迹
-*/
-function clearSetupEnv() {
-  _vm_removeCookie('package_name');
-  _vm_removeCookie('package');
-  _vm_removeCookie('client_version');
-  _vm_removeCookie('version');
-  _vm_removeCookie('client_type');
-  _vm_removeCookie('package_name');
-  _vm_removeCookie('app_partner_id');
 }
