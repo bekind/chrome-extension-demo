@@ -32,11 +32,9 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 getDebugSettings('app-debug', (debug) => {
     if (debug) {
         initialSetupEnv(() => {
-            // chrome.tabs.executeScript(null,{file: '../js/clientbridge.js'})
-
-            // var srcUrl = chrome.extension.getURL("../js/clientbridge.js");
-            // var script = '<script type="text/javascript" src=' + srcUrl + '></script>';
-            // $('html').prepend(script);
+            var srcUrl = chrome.extension.getURL("../js/clientbridge.js");
+            var script = '<script type="text/javascript" src=' + srcUrl + '></script>';
+            $('html').prepend(script);
         });
     } else {
         clearSetupEnv();
