@@ -113,6 +113,8 @@ function getDomainUrl(url) {
 
 function getPackageNameWithType(type) {
   var packageName = 'com.culiu.chuchutui';
+  //后期再优化
+  // var pakages = ['com.culiu.chuchutui','com.culiu.consultant'];
   switch (+type) {
     case 1:
       //楚楚推
@@ -133,6 +135,9 @@ function getPackageNameWithType(type) {
     case 5:
       //微友团
       packageName = 'com.culiu.weiyoutuan';
+      break;
+    case 6:
+      packageName = 'com.culiu.youxuanguwen'
       break;
     default:
       packageName = 'com.culiu.chuchutui';
@@ -163,6 +168,10 @@ function getAppPartnerIdWithType(type) {
     case 5:
       //微友团
       appId = 13;
+      break;
+    case 6:
+      //优选汇
+      appId = 15;
       break;
     default:
       appId = 14;
