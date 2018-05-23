@@ -29,6 +29,8 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 //get setting option
 //app-debug: value [boolean] true is in app debug mode, false is not
 
+
+
 getDebugSettings('app-debug', (debug) => {
     if (debug) {
         initialSetupEnv(() => {
