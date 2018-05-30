@@ -103,22 +103,28 @@ function clearSetupEnv() {
 
 
 // 1.同步获取脚本内容
-var readFileSync = function (filename, callback) {
-    // read script sync
-    var xhr = new XMLHttpRequest();
-    var scriptUrl = chrome.extension.getURL(filename);
-    //!!! disable async
-    xhr.open("GET", scriptUrl, false);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            callback(xhr.responseText);
-        }
-    };
-    xhr.send(null);
+function readFileSync(filename, callback) {
+    var bridgeCode = localStorage.getItem('chromebridge');
+    if (bridgeCode) {
+        writeScriptSync(bridgeCode);
+    } else {
+        // read script sync
+        var xhr = new XMLHttpRequest();
+        var scriptUrl = chrome.extension.getURL(filename);
+        //!!! disable async
+        xhr.open("GET", scriptUrl, false);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                localStorage.setItem('chromebridge', xhr.responseText);
+                callback(xhr.responseText);
+            }
+        };
+        xhr.send(null);
+    }
 };
 
 // 2.插入内联脚本
-var writeScriptSync = function (code) {
+function writeScriptSync(code) {
     var s = document.createElement('script');
     s.textContent = code;
     var doc = document.head || document.documentElement;
